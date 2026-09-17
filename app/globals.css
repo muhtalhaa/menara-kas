@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-teal-50: #e1f7f4;
+  --color-teal-100: #c5efeb;
+  --color-teal-200: #9adfd9;
+  --color-teal-300: #5fc4be;
+  --color-teal-400: #2aa3a0;
+  --color-teal-500: #018081;
+  --color-teal-600: #016b6c;
+  --color-teal-700: #015556;
+  --color-teal-800: #014041;
+  --color-teal-900: #012b2c;
+
+  --color-mint: #e1f7f4;
+  --color-white: #ffffff;
+  --color-ink: #0b0b0f;
+  --color-ink-muted: #4a4954;
+  --color-ink-subtle: #6f6d7a;
+
+  --color-mist-50: #f7fbfb;
+  --color-mist-100: #f0f7f6;
+  --color-mist-200: #e1f7f4;
+  --color-mist-300: #c9dedc;
+  --color-mist-400: #a3bdba;
+  --color-mist-500: #6f8a87;
+  --color-mist-600: #4a6360;
+
+  --color-surplus: #0e7a56;
+  --color-surplus-bg: #e6f4ef;
+  --color-deficit: #b4232f;
+  --color-deficit-bg: #fbeaeb;
+  --color-attention: #8a5a00;
+  --color-attention-bg: #fff6e5;
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", "Segoe Script", cursive;
+
+  --radius-card: 0.75rem;
+}
+
+@layer base {
+  html {
+    color: var(--color-ink);
+    background: var(--color-white);
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .font-hand {
+    font-family: var(--font-hand);
+    letter-spacing: 0.01em;
+  }
+}

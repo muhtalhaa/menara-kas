@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Emoji } from "@/components/ui/emoji";
 import { emoji } from "@/lib/ui/emoji";
 import { requireSession } from "@/lib/server/auth";
@@ -49,7 +50,14 @@ export default async function ProjectPage() {
             <tbody>
               {projects.map((project) => (
                 <tr key={project.id} className="border-t border-mist-300">
-                  <td className="px-3 py-2 font-semibold">{project.code}</td>
+                  <td className="px-3 py-2 font-semibold">
+                    <Link
+                      href={`/project/${project.code}`}
+                      className="text-teal-600 hover:underline"
+                    >
+                      {project.code}
+                    </Link>
+                  </td>
                   <td className="px-3 py-2">{project.name}</td>
                   <td className="px-3 py-2">{project.status}</td>
                   <td className="num px-3 py-2">

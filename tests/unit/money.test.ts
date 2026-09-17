@@ -3,6 +3,7 @@ import {
   formatRupiah,
   fromDbNumeric,
   fromRupiah,
+  parseMoneyField,
   toDbNumeric,
 } from "@/lib/accounting/money";
 
@@ -21,5 +22,10 @@ describe("money", () => {
 
   it("menolak nilai uang yang tidak bisa dibaca", () => {
     expect(() => fromRupiah("abc")).toThrow(/tidak bisa dibaca/);
+  });
+
+  it("membaca medan kosong sebagai nol", () => {
+    expect(parseMoneyField("")).toBe(0n);
+    expect(parseMoneyField("-")).toBe(0n);
   });
 });

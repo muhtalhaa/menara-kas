@@ -54,11 +54,11 @@ flowchart TD
 | 0 | Fondasi repositori | completed | typecheck/test/lint/build lulus. Migrasi siap; butuh PostgreSQL lokal. Negative: AUTH_SECRET pendek, money invalid. |
 | 1 | Auth, organisasi, layout | completed | typecheck/test/lint/build lulus. Halaman masuk/daftar/onboarding/dashboard/pengaturan. Negative: company_code invalid, password <10, non-Owner ditolak di pengaturan. Butuh `db:migrate` + Postgres untuk uji end-to-end. |
 | 2 | Master data inti | completed | Migrasi COA/kontak/project, seed template, halaman akun/project/kontak. typecheck/test/lint/build lulus. Negative: kode project duplikat & company_code invalid. |
-| 3 | Mesin jurnal dan periode | pending | |
-| 4 | Formulir transaksi dasar | pending | |
-| 5 | Invoice, pembayaran, pajak baris | pending | |
-| 6 | Pipeline project, termin, retensi, jaminan | pending | |
-| 7 | Quotation, BA, Kwitansi, PDF, penomoran | pending | |
+| 3 | Mesin jurnal dan periode | completed | typecheck/lint/test/build lulus (33 tes). Trigger I1–I5, postEntry/draft/reversal, Jurnal Umum, kunci periode. Negative: jurnal tidak seimbang, periode terkunci, kunci saat ada draft, edit terposting, akun induk, project wajib. |
+| 4 | Formulir transaksi dasar | completed | typecheck/lint/test/build lulus (39 tes). Kas masuk/keluar/transfer, pecah project, nomor KM/KK/TR. Negative: beban pokok tanpa project, transfer akun sama. Lampiran berkas ditunda ke fase 5. Staf Input tidak punya aksi posting (roles). |
+| 5 | Invoice, pembayaran, pajak baris | completed | typecheck/lint/test/build lulus (48 tes). Invoice+terima bayar T1–T2, tagihan+bayar. Negative: tanpa pelanggan/vendor, pelunasan melebihi sisa. |
+| 6 | Pipeline project, termin, retensi, jaminan | completed | typecheck/lint/test/build lulus (52 tes). Pipeline, termin, retensi, jaminan. Negative: persen termin >100%, dua invoice pada satu termin. |
+| 7 | Quotation, BA, Kwitansi, PDF, penomoran | completed | typecheck/lint/test/build lulus (57 tes). QT/BA/KW + cetak HTML A4/A5, penomoran formal, QT→INV salin item. Negative: seq ulang tahun baru, company_code tidak mengubah nomor lama, nomor duplikat, kwitansi ≤0. |
 | 8 | Laporan keuangan standar | pending | |
 | 9 | Laporan project dan dashboard | pending | |
 | 10 | Paket pajak, impor Excel, aset, tutup buku | pending | |

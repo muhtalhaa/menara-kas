@@ -6,9 +6,14 @@ import type { AppSession } from "@/lib/server/auth";
 
 const nav = [
   { href: "/dashboard", label: "Dashboard", icon: emoji.dashboard },
+  { href: "/transaksi", label: "Transaksi", icon: emoji.transaksi },
+  { href: "/invoice", label: "Invoice", icon: emoji.kasMasuk },
+  { href: "/tagihan", label: "Tagihan", icon: emoji.kasKeluar },
+  { href: "/dokumen", label: "Dokumen", icon: emoji.cetak },
   { href: "/project", label: "Project", icon: emoji.project },
   { href: "/master/akun", label: "Chart of Account", icon: emoji.coa },
   { href: "/master/kontak", label: "Kontak", icon: emoji.kontak },
+  { href: "/periode", label: "Periode", icon: emoji.periode },
   { href: "/pengaturan/perusahaan", label: "Pengaturan", icon: emoji.pengaturan },
 ] as const;
 

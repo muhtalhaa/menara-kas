@@ -91,6 +91,45 @@ export async function listAccounts(ctx: OrgContext) {
   });
 }
 
+export async function listTaxCodes(ctx: OrgContext) {
+  return withOrg(ctx, async (client) => {
+    const result = await client.query<{
+      id: string;
+      code: string;
+      name: string;
+      kind: string;
+    }>(
+      `SELECT id, code, name, kind
+       FROM tax_codes
+       WHERE org_id = $1 AND is_active = true
+       ORDER BY code`,
+      [ctx.orgId],
+    );
+    return result.rows;
+  });
+}
+
+export async function listCashAccounts(ctx: OrgContext) {
+  return withOrg(ctx, async (client) => {
+    const result = await client.query<{
+      id: string;
+      account_no: string;
+      name: string;
+      label: string;
+    }>(
+      `SELECT a.id, a.account_no, a.name,
+              COALESCE(c.label, a.name) AS label
+       FROM accounts a
+       LEFT JOIN cash_accounts c
+         ON c.account_id = a.id AND c.org_id = a.org_id
+       WHERE a.org_id = $1 AND a.is_cash = true AND a.is_active = true
+       ORDER BY a.sort_key`,
+      [ctx.orgId],
+    );
+    return result.rows;
+  });
+}
+
 export async function listContacts(ctx: OrgContext) {
   return withOrg(ctx, async (client) => {
     const result = await client.query<{

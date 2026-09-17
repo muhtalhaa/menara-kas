@@ -44,6 +44,12 @@ function parseDecimalToCents(raw: string): Money {
   return negative ? -result : result;
 }
 
+export function parseMoneyField(raw: string): Money {
+  const trimmed = raw.trim();
+  if (!trimmed || trimmed === "-" || trimmed === "0") return 0n;
+  return fromRupiah(trimmed);
+}
+
 export function fromRupiah(value: string | number): Money {
   if (typeof value === "number") {
     if (!Number.isFinite(value)) {

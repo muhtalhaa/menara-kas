@@ -25,7 +25,7 @@ const KONSTRUKSI: SeedAccount[] = [
   { accountNo: "1-1200", name: "Bank", group: "ASET", normal: "DEBIT", isCash: true, isSystem: true },
   { accountNo: "1-1300", name: "Piutang Usaha", group: "ASET", normal: "DEBIT", isSystem: true, role: "PIUTANG_USAHA" },
   { accountNo: "1-1400", name: "Piutang Retensi", group: "ASET", normal: "DEBIT", isSystem: true, role: "PIUTANG_RETENSI" },
-  { accountNo: "1-1450", name: "Pajak Dibayar Dimuka PPh", group: "ASET", normal: "DEBIT", isSystem: true },
+  { accountNo: "1-1450", name: "Pajak Dibayar Dimuka PPh", group: "ASET", normal: "DEBIT", isSystem: true, role: "PAJAK_DIBAYAR_DIMUKA" },
   { accountNo: "1-1500", name: "PPN Masukan", group: "ASET", normal: "DEBIT", isSystem: true, role: "PPN_MASUKAN" },
   { accountNo: "2-1000", name: "Liabilitas Lancar", group: "LIABILITAS", normal: "KREDIT", isPostable: false },
   { accountNo: "2-1100", name: "Utang Usaha", group: "LIABILITAS", normal: "KREDIT", isSystem: true, role: "UTANG_USAHA" },
@@ -107,6 +107,14 @@ export async function seedChartOfAccounts(
       [orgId, kasId],
     );
   }
+  const bankId = idByNo.get("1-1200");
+  if (bankId) {
+    await client.query(
+      `INSERT INTO cash_accounts (org_id, account_id, label)
+       VALUES ($1, $2, 'Bank')`,
+      [orgId, bankId],
+    );
+  }
 
   const ppnKeluaran = idByNo.get("2-1310");
   const ppnMasukan = idByNo.get("1-1500");
@@ -133,6 +141,20 @@ export async function seedChartOfAccounts(
     await client.query(
       `INSERT INTO tax_rates (tax_code_id, rate_percent, valid_from)
        VALUES ($1, 11, CURRENT_DATE)`,
+      [tax.rows[0]!.id],
+    );
+  }
+  const prepaidPph = idByNo.get("1-1450");
+  if (prepaidPph) {
+    const tax = await client.query<{ id: string }>(
+      `INSERT INTO tax_codes (org_id, code, name, kind, account_id)
+       VALUES ($1, 'PPH_4_2', 'PPh Pasal 4 ayat 2', 'PPH_4_2', $2)
+       RETURNING id`,
+      [orgId, prepaidPph],
+    );
+    await client.query(
+      `INSERT INTO tax_rates (tax_code_id, rate_percent, valid_from)
+       VALUES ($1, 2, CURRENT_DATE)`,
       [tax.rows[0]!.id],
     );
   }

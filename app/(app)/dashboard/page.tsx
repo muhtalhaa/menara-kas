@@ -22,8 +22,8 @@ export default async function DashboardPage() {
           {session.orgName} ({session.companyCode})
         </p>
         <p className="mt-2 text-sm text-ink-muted">
-          Master data dan transaksi akan muncul setelah Fase 2–4 selesai.
-          Untuk sekarang, lengkapi profil di Pengaturan bila perlu.
+          Catat transaksi di Jurnal Umum, lalu kunci periode setelah buku bulan
+          ini rapi.
         </p>
       </div>
       <div className="rounded-xl border border-mist-300 bg-mint p-5">
